@@ -2,8 +2,8 @@ class Solution {
     public boolean canArrange(int[] arr, int k) {
         HashMap<Integer, Integer> map = new HashMap<>();
         for(int i=0;i<arr.length;i++){
-            int ele = arr[i]%k;
-            if(ele<0) ele+=k;
+            int ele = ((arr[i]%k)+k)%k;
+            // if(ele<0) ele+=k;
             if(map.containsKey(ele)){
                 int freq = map.get(ele);
                 map.put(ele, freq+1);
