@@ -1,6 +1,6 @@
 class Solution {
     public Node copyRandomList(Node head) {
-        if(head == null) return null;
+        if(head==null) return null;
         Node head2 = new Node(head.val);
         Node temp2 = head2;
         Node temp = head.next;
@@ -10,7 +10,7 @@ class Solution {
             temp2 = dup;
             temp = temp.next;
         }
-        HashMap<Node , Node> map = new HashMap<>();
+        HashMap<Node, Node> map = new HashMap<>();
         temp2 = head2;
         temp = head;
         while(temp!=null){
