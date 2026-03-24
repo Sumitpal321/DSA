@@ -1,53 +1,29 @@
 class Solution {
+    class Pair implements Comparable<Pair>{
+        int ele;
+        int diff;
+        Pair(int ele, int diff){
+            this.ele = ele;
+            this.diff = diff;
+        }
+        public int compareTo(Pair p){
+            if(this.diff == p.diff){
+                return this.ele - p.ele;
+            }
+            return this.diff - p.diff;
+        }
+    }
     public List<Integer> findClosestElements(int[] arr, int k, int x) {
+        PriorityQueue<Pair> pq = new PriorityQueue<>(Collections.reverseOrder());
+        for(int ele : arr){
+            int diff = Math.abs(x - ele);
+            pq.add(new Pair(ele, diff));
+            if(pq.size()>k) pq.remove();
+        }
         List<Integer> ans = new ArrayList<>();
-        int n = arr.length;
-        if(x<arr[0]){
-            for(int i=0;i<k;i++){
-                ans.add(arr[i]);
-            }
-            return ans;
-        }
-        else if(x>arr[n-1]){
-           for(int i=n-1;i>=n-k;i--){
-                ans.add(arr[i]);
-           }
-           Collections.sort(ans);
-           return ans;
-        }
-        int lb = n;
-        int lo=0, hi=n-1;
-        while(lo<=hi){
-            int mid = lo + (hi-lo)/2;
-            if(arr[mid]>=x){
-                lb = mid;
-                hi = mid-1;
-            }
-            else lo = mid+1;
-        }
-        int j = lb, i = lb - 1;
-        while(k>0 && i>=0 && j<n){
-            int di = Math.abs(x - arr[i]);
-            int dj = Math.abs(x - arr[j]);
-            if(di<=dj){
-                ans.add(arr[i]);
-                i--;
-            }
-            else{
-                ans.add(arr[j]);
-                j++;
-            }
-            k--;
-        }
-        while(i<0 && k>0){
-            ans.add(arr[j]);
-            j++;
-            k--;
-        }
-        while(j==n && k>0){
-            ans.add(arr[i]);
-            i--;
-            k--;
+        while(pq.size()>0){
+            Pair p = pq.remove();
+            ans.add(p.ele);
         }
         Collections.sort(ans);
         return ans;
