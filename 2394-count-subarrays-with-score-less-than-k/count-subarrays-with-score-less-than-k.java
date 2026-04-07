@@ -5,7 +5,7 @@ class Solution {
         int i = 0;long sum = 0;
         for(int j=0;j<n;j++){
             sum += arr[j];
-            while(sum * (j - i + 1) >= k){
+            while(i<=j && sum * (j - i + 1) >= k){
                 sum -= arr[i];
                 i++;
             }
