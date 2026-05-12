@@ -3,22 +3,21 @@ class Solution {
         int n = nums.length;
         int[] lis = new int[n];
         int[] lds = new int[n];
-
-        Arrays.fill(lis, 1);
         for(int i=0;i<n;i++){
             for(int j=0;j<=i-1;j++){
                 if(nums[j]<nums[i]){
-                    lis[i] = Math.max(lis[i], 1+lis[j]);
+                    lis[i] = Math.max(lis[i], lis[j]);
                 }
             }
+            lis[i] += 1;
         }
-        Arrays.fill(lds, 1);
         for(int i=n-1;i>=0;i--){
             for(int j=n-1;j>=i+1;j--){
                 if(nums[j]<nums[i]){
-                    lds[i] = Math.max(lds[i], 1+lds[j]);
+                    lds[i] = Math.max(lds[i], lds[j]);
                 }
             }
+            lds[i] += 1;
         }
         int maxmountain = 0;
         for(int i=0;i<n;i++){
