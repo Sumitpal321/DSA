@@ -10,8 +10,7 @@ class Solution {
             else st.pop();
         }
         while(!st.isEmpty()){
-            result.append(st.peek());
-            st.pop();
+            result.append(st.pop());
         }
         return result.reverse().toString();
     }
