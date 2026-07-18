@@ -1,18 +1,14 @@
 class Solution {
-    public void swap(int[]arr, int j,int k){
-        int temp = arr[j];
-        arr[j] = arr[k];
-        arr[k] = temp;
-    }
-    public int majorityElement(int[] arr) {
-        for(int i=0;i<arr.length;i++){
-            int j = i;
-            while(j>=1 && arr[j]<arr[j-1]){
-               swap(arr,j,j-1);
-               j--;
+    public int majorityElement(int[] nums) {
+        int n = nums.length;
+        for(int i=0;i<n;i++){
+            int count = 0;
+            for(int j=0;j<n;j++){
+                if(nums[i]==nums[j]) count++;
             }
+            if(count>n/2) return nums[i];
         }
-        return arr[arr.length/2];
         
+        return -1;
     }
 }
