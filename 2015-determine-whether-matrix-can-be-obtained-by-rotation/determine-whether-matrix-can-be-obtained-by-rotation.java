@@ -1,7 +1,7 @@
 class Solution {
     public boolean findRotation(int[][] mat, int[][] target) {
         int n = mat.length;
-        for(int i=0;i<4;i++){
+        for(int i=1;i<=4;i++){
             if(isEqual(mat, target)){
                 return true;
             }
