@@ -20,17 +20,17 @@ class Solution {
                 break;
             }
         }
-
         if(target_idx!=-1){
-            int swap_idx = target_idx;
+            int swap_idx = -1;
             for(int j=n-1;j>target_idx;j--){
-                if(nums[j]>nums[target_idx]){
+                if(nums[j] > nums[target_idx]){
                     swap_idx = j;
                     break;
                 }
             }
             swap(nums, target_idx, swap_idx);
         }
-        reverse(nums, target_idx+1 , n-1);
+        reverse(nums, target_idx+1, n-1);
+
     }
 }
