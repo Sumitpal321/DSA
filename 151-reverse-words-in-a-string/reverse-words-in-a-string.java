@@ -1,4 +1,13 @@
 class Solution {
+    public void reverse(char[] sArr, int i, int j){
+        while(i<j){
+            char temp = sArr[i];
+            sArr[i] = sArr[j];
+            sArr[j] = temp;
+            i++;
+            j--;
+        }
+    }
     public String reverseWords(String s) {
         int n = s.length();
         StringBuilder ans = new StringBuilder();
@@ -24,13 +33,5 @@ class Solution {
         }
         return ans.length() >0 ? ans.substring(1) : "";
     }
-    public void reverse(char[] sArr, int i, int j){
-        while(i<j){
-            char temp = sArr[i];
-            sArr[i] = sArr[j];
-            sArr[j] = temp;
-            i++;
-            j--;
-        }
-    }
+    
 }
