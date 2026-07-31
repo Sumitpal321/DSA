@@ -1,6 +1,6 @@
 class Solution {
     int start = 0;
-    int maxlen = 1;
+    int maxlen = 0;
     public String longestPalindrome(String s) {
         int n = s.length();
         if(n<2) return s;
