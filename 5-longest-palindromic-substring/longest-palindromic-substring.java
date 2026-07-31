@@ -3,6 +3,7 @@ class Solution {
     int maxlen = 1;
     public String longestPalindrome(String s) {
         int n = s.length();
+        if(n<2) return s;
 
         for(int i=0;i<n;i++){
 
