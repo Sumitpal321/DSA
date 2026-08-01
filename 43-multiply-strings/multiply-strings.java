@@ -11,21 +11,18 @@ class Solution {
                 int d2 = num2.charAt(j) - '0';
 
                 int product = d1 * d2;
-
                 int p1 = i+j;
                 int p2 = i+j+1;
 
                 int sum = product + res[p2];
-
-                res[p2] = sum%10;
-                res[p1] += sum/10;
+                res[p2] = sum % 10;
+                res[p1] += sum / 10;
             }
         }
         StringBuilder sb = new StringBuilder();
         for(int num : res){
-            if(!(sb.length() ==0 && num == 0)){
-                sb.append(num);
-            }
+            if(!(num==0 && sb.length()==0))
+            sb.append(num);
         }
         return sb.toString();
     }
