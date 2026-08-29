@@ -1,21 +1,18 @@
 class Solution {
     public int[] singleNumber(int[] nums) {
         int n = nums.length;
-        HashMap<Integer, Integer> map = new HashMap<>();
-        for(int ele : nums){
-            if(map.containsKey(ele)){
-                int freq = map.get(ele);
-                map.put(ele, freq+1);
-            }
-            else map.put(ele, 1);
+        int xor = 0;
+        for(int i=0;i<n;i++){
+            xor = xor ^ nums[i];
         }
-        List<Integer> ans = new ArrayList<>();
-        for(int ele : map.keySet()){
-            int key = map.get(ele);
-            if(key == 1){
-                ans.add(ele);
+        int rightmost = (xor & (xor - 1)) ^ xor;
+        int b1 = 0, b2 = 0;
+        for(int i=0;i<n;i++){
+            if((nums[i] & rightmost) != 0){
+                b1 = b1 ^ nums[i];
             }
+            else b2 = b2 ^ nums[i];
         }
-        return new int[]{ans.get(0), ans.get(1)};
+        return new int[]{b1, b2};
     }
 }
