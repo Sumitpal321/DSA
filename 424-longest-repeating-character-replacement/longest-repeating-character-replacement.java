@@ -4,19 +4,18 @@ class Solution {
         int[] freq = new int[26];
         int i = 0;
         int maxwindow = 0;
-        int maxFreq = 0;
+        int maxfreq = 0;
         for(int j=0;j<n;j++){
             freq[s.charAt(j) - 'A']++;
-            maxFreq = Math.max(maxFreq, freq[s.charAt(j) - 'A']);
+            maxfreq = Math.max(maxfreq, freq[s.charAt(j) - 'A']);
 
-            int windowlen = j-i+1;
-            if(windowlen - maxFreq > k){
+            int window_len = j-i+1;
+            if(window_len - maxfreq > k){
                 freq[s.charAt(i) - 'A']--;
                 i++;
             }
-
-            windowlen = j-i+1;
-            maxwindow = Math.max(windowlen, maxwindow);
+            window_len = j-i+1;
+            maxwindow = Math.max(maxwindow, window_len);
         }
         return maxwindow;
     }
