@@ -1,32 +1,33 @@
 class Solution {
     public boolean checkValidString(String s) {
         int n = s.length();
-        Boolean[][] dp = new Boolean[n][n+1];
-        return solve(s, 0, 0, dp);
-    }
-    public boolean solve(String s, int idx, int count, Boolean[][] dp){
-        int n = s.length();
-        if(count < 0) return false;
-        if(idx == n){
-            return (count == 0);
+        boolean[][] t = new boolean[n+1][n+1];
+        t[n][0] = true;
+        for(int i=n-1;i>=0;i--){
+            for(int open=0;open<=n;open++){
+                boolean isValid = false;
+                if(s.charAt(i) == '*'){
+                    if(open<n){
+                        isValid |= t[i+1][open+1];
+                    }
+                    isValid |= t[i+1][open];
+                    if(open>0){
+                        isValid |= t[i+1][open-1];
+                    }
+                }
+                else if(s.charAt(i) == '('){
+                    if(open<n){
+                        isValid |= t[i+1][open+1];
+                    }
+                }
+                else{
+                    if(open>0){
+                        isValid |= t[i+1][open-1];
+                    }
+                }
+                t[i][open] = isValid;
+            }
         }
-        if(dp[idx][count] != null) return dp[idx][count];
-
-        boolean ans;
-        if(s.charAt(idx) == '('){
-            ans = solve(s, idx+1, count+1, dp);
-        }
-        else if(s.charAt(idx) == ')'){
-            ans = solve(s, idx+1, count-1, dp);
-        }
-        else{
-            boolean open = solve(s, idx+1, count+1, dp);
-            boolean close = solve(s, idx+1, count-1, dp);
-            boolean empty = solve(s, idx+1, count, dp);
-
-            ans = open || close || empty;
-        }
-        dp[idx][count] = ans;
-        return dp[idx][count];
+        return t[0][0];
     }
 }
