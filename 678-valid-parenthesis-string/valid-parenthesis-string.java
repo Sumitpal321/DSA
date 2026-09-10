@@ -27,6 +27,6 @@ class Solution {
             ans = open || close || empty;
         }
         dp[idx][count] = ans;
-        return ans;
+        return dp[idx][count];
     }
 }
