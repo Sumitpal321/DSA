@@ -1,26 +1,20 @@
 class Solution {
-    public int rob(int[] arr) {
-        int n = arr.length;
-        if(n<2) return arr[0];
-        int[] skipLastHouse = new int[n-1];
-        int[] skipFirstHouse = new int[n-1];
-        for(int i=0;i<n-1;i++){
-            skipLastHouse[i] = arr[i];
-            skipFirstHouse[i] = arr[i+1];
-        }
-        int lootskippinglast = robhelper(skipLastHouse);
-        int lootskippingfirst = robhelper(skipFirstHouse);
-        return Math.max(lootskippinglast, lootskippingfirst);
+    public int rob(int[] nums) {
+        int n = nums.length;
+        if(n==1) return nums[0];
+        int[] dp1 = new int[n+1];
+        Arrays.fill(dp1, -1);
+        int[] dp2 = new int[n+1];
+        Arrays.fill(dp2, -1);
+        int case1 = solve(nums, 0, n-1, dp1);
+        int case2 = solve(nums, 1, n, dp2);
+        return Math.max(case1, case2);
     }
-    public int robhelper(int [] arr){
-        int n = arr.length;
-        int[] dp = new int[n+1];
-        dp[0] = arr[0];
-        if(n>1) dp[1] = Math.max(arr[0], arr[1]);
-        for(int i=2;i<n;i++){
-            dp[i] = Math.max(arr[i] + dp[i-2], dp[i-1]);
-        }
-        return dp[n-1];
-        
+    public int solve(int[] nums, int idx, int n, int[] dp){
+        if(idx>=n) return 0; 
+        if(dp[idx] != -1) return dp[idx];
+        int take = nums[idx] + solve(nums, idx+2, n, dp);
+        int skip = solve(nums, idx+1, n, dp);
+        return dp[idx] = Math.max(take, skip);
     }
 }
