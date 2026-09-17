@@ -1,21 +1,19 @@
 class Solution {
-    public int solve(int i, int j, Integer m, Integer n, int[][] dp){
-        if(i>=m || j>=n) return 0;
-        if(i==m-1 && j==n-1) return 1;
-
-        if(dp[i][j]!=-1) return dp[i][j];
-        int down = solve(i+1, j, m, n, dp);
-        int right = solve(i, j+1, m, n, dp);
-        return dp[i][j] = down + right;
-        
-    }
     public int uniquePaths(int m, int n) {
-        int[][] dp = new int[m][n];
+        int[][] dp = new int[m+1][n+1];
         for(int i=0;i<m;i++){
             for(int j=0;j<n;j++){
                 dp[i][j] = -1;
             }
         }
-        return solve(0, 0, m, n, dp);
+        return solve(m, n, 0, 0, dp);
+    }
+    public int solve(Integer m, Integer n, int row, int col, int[][] dp){
+        if(row == m-1 || col == n-1) return 1;
+        if(row<0 || row>m || col<0 || col>n) return 0;
+        if(dp[row][col] != -1) return dp[row][col];
+        int rightways = solve(m, n, row, col+1, dp);
+        int downways = solve(m, n, row+1, col, dp);
+        return dp[row][col] = rightways + downways;
     }
 }
