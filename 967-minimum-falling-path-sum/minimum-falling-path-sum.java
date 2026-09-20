@@ -30,24 +30,30 @@ class Solution {
         if(dp[row][col] != Integer.MAX_VALUE)
             return dp[row][col];
 
+        int min = Integer.MAX_VALUE;
         int sum = matrix[row][col];
 
-        int downleft = Integer.MAX_VALUE;
-        if(row + 1 < m && col - 1 >= 0){
-            downleft = solve(matrix, row + 1, col - 1, m, n, dp);
+        for(int shift=-1;shift<=1;shift++){
+            if(row+1<n && col+shift<n && col+shift>=0){
+                min = Math.min(min, sum + solve(matrix, row+1, col+shift, m, n, dp));
+            }
         }
 
-        int downright = Integer.MAX_VALUE;
-        if(row + 1 < m && col + 1 < n){
-            downright = solve(matrix, row + 1, col + 1, m, n, dp);
-        }
+        // int downleft = Integer.MAX_VALUE;
+        // if(row + 1 < m && col - 1 >= 0){
+        //     downleft = solve(matrix, row + 1, col - 1, m, n, dp);
+        // }
 
-        int down = Integer.MAX_VALUE;
-        if(row + 1 < m){
-            down = solve(matrix, row + 1, col, m, n, dp);
-        }
+        // int downright = Integer.MAX_VALUE;
+        // if(row + 1 < m && col + 1 < n){
+        //     downright = solve(matrix, row + 1, col + 1, m, n, dp);
+        // }
 
-        return dp[row][col] =
-                sum + Math.min(downleft, Math.min(downright, down));
+        // int down = Integer.MAX_VALUE;
+        // if(row + 1 < m){
+        //     down = solve(matrix, row + 1, col, m, n, dp);
+        // }
+
+        return dp[row][col] = min;
     }
 }
