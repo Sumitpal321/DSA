@@ -1,35 +1,28 @@
 class Solution {
-    public static boolean subset(int i, int[] arr, int target, int[][] dp){
-        if(i==arr.length){
-            if(target==0) return true;
-            else return false;
-        }
-
-        if(dp[i][target]!=-1) return (dp[i][target]==1);
-        boolean ans = false;
-        boolean skip = subset(i+1, arr, target, dp);
-        if(target - arr[i] < 0) ans = skip;
-        else{
-            boolean pick = subset(i+1, arr, target-arr[i], dp);
-            ans = skip || pick;
-        }
-        dp[i][target] = ans ? 1 : 0;
-        return ans;
-    }
-    public boolean canPartition(int[] arr) {
-        int n = arr.length;
+    public boolean canPartition(int[] nums) {
+        int n = nums.length;
         int sum = 0;
-        for(int ele : arr) sum+=ele;
 
-        if(sum%2!=0) return false;
-
-        int target = sum/2;
-        int[][] dp = new int[n][target+1];
-        for(int i=0;i<dp.length;i++){
-            for(int j=0;j<dp[0].length;j++){
-                dp[i][j] = -1;
-            }
+        for(int i=0;i<n;i++){
+            sum += nums[i];
         }
-        return subset(0, arr, target, dp);
+        if(sum % 2 != 0) return false;
+
+        int target = sum / 2;
+        
+        Boolean [][] dp = new Boolean[n+1][target+1];
+
+        return solve(nums, 0, target, n, dp);
+    }
+    public boolean solve(int[] nums, int idx, int target, int n, Boolean[][] dp){
+        if(target == 0) return true;
+        if(idx == n) return false;
+        if(dp[idx][target] != null) return dp[idx][target];
+        boolean skip = solve(nums, idx+1, target, n, dp);
+        boolean take = false;
+        if(nums[idx] <= target){
+            take = solve(nums, idx+1, target - nums[idx], n, dp);
+        }
+        return dp[idx][target] = take || skip;
     }
 }
