@@ -13,12 +13,13 @@ class Solution {
         if(amount == 0) return 1;
 
         if(i==n) return 0;
+
+        if(amount < 0){
+            return 0;
+        }
         
         if(dp[i][amount] != -1) return dp[i][amount];
 
-        if(amount < coins[i]){
-            return solve(amount, coins, i+1, n, dp);
-        }
         int skip = solve(amount, coins, i+1, n, dp);
         int take = solve(amount - coins[i], coins, i, n, dp);
 
