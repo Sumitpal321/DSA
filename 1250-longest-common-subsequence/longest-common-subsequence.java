@@ -1,25 +1,18 @@
 class Solution {
-    public int longestCommonSubsequence(String a, String b) {
-        int m = a.length(), n = b.length();
-        int [][] dp = new int[m+1][n+1];
-        for(int i=1;i<=m;i++){
-            for(int j=1;j<=n;j++){
-                if(a.charAt(i-1) == b.charAt(j-1))
-                dp[i][j] = 1 + dp[i-1][j-1];
-                else{
-                    dp[i][j] = Math.max(dp[i][j-1], dp[i-1][j]);
-                }
-            }
+    public int longestCommonSubsequence(String text1, String text2) {
+        int m = text1.length();
+        int n = text2.length();
+        int[][] dp = new int[m+1][n+1];
+        for(int[] row : dp){
+            Arrays.fill(row, -1);
         }
-        StringBuilder str = new StringBuilder("");
-        int i=m, j=n;
-        while(i>0 && j>0){
-            if(a.charAt(i-1)==b.charAt(j-1)) str.append(a.charAt(i-1));
-            if(dp[i-1][j]>dp[i][j-1]) i--;
-            else j--;
-        }
-        str.reverse();
-        System.out.println(str);
-        return dp[m][n];
+        return solve(text1, text2, 0, 0, m, n, dp);
+    }
+    public int solve(String text1, String text2, int i, int j, Integer m, Integer n, int[][] dp){
+        if(i>=m || j>=n) return 0;
+        if(dp[i][j] != -1) return dp[i][j];
+        if(text1.charAt(i) == text2.charAt(j)) return 1 + solve(text1, text2, i+1, j+1, m, n, dp);
+
+        return dp[i][j] = Math.max(solve(text1, text2, i+1, j, m, n, dp), solve(text1, text2, i, j+1, m, n, dp));
     }
 }
